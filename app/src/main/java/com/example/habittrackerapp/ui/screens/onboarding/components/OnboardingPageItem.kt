@@ -1,0 +1,93 @@
+package com.example.habittrackerapp.ui.screens.onboarding.components
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.habittrackerapp.data.OnboardingPage
+
+
+@Composable
+fun OnboardingPageItem(onboardingPage: OnboardingPage) {
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top) {
+        Image(
+            painter = painterResource(id = onboardingPage.imageRes),
+            contentDescription = null,
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.7f),
+            alignment = Alignment.Center
+        )
+
+//        Spacer(
+//            modifier = Modifier.size(8.dp)
+//        )
+
+        Text(
+            text = onboardingPage.title,
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+            fontSize = 36.sp,
+            textAlign = TextAlign.Start,
+            fontWeight = FontWeight.Bold,
+            lineHeight = 52.sp,
+            color = Color.White
+        )
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .size(15.dp)
+        )
+
+        Text(
+            text = onboardingPage.description,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
+            fontSize = 16.sp,
+            textAlign = TextAlign.Start,
+            lineHeight = 24.sp,
+            color = Color.White
+        )
+
+    }
+
+}
+
+@Preview(showBackground = true)
+@Composable
+fun FirstPagePreview() {
+    OnboardingPageItem(OnboardingPage.FirstPage)
+}
+
+@Preview(showBackground = true)
+@Composable
+fun SecondPagePreview() {
+    OnboardingPageItem(OnboardingPage.SecondPage)
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ThirdPagePreview() {
+    OnboardingPageItem(OnboardingPage.ThirdPage)
+}

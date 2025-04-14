@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.habittrackerapp.ui.screens.home.HomeScreen
+import com.example.habittrackerapp.ui.screens.login.LoginScreen
 import com.example.habittrackerapp.ui.screens.onboarding.OnboardingScreen
 import com.example.habittrackerapp.ui.screens.splash.SplashScreen
 
@@ -15,6 +17,9 @@ fun NavGraph(navController: NavHostController) {
         }
         composable(route = Screen.Onboarding.route) {
             OnboardingScreen(navController)
+        }
+        composable(route = Screen.Login.route) {
+            LoginScreen(navController)
         }
     }
 }
