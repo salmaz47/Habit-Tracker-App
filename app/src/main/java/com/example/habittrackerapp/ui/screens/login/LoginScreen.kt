@@ -36,7 +36,9 @@ fun LoginScreen(navController: NavController) {
 
     val context = LocalContext.current
     val viewModel: AuthViewModel = viewModel()
-    val errorMessage = viewModel.errorMessage
+
+    val isEmailValid = email.matches(Regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"))
+    val isPasswordValid = password.length >= 6
 
     Column(
         modifier = Modifier
@@ -107,6 +109,17 @@ fun LoginScreen(navController: NavController) {
                         }
                     }
                 )
+
+                if (email.isNotBlank() && !isEmailValid) {
+                    Text(
+                        text = "Please enter a valid email address",
+                        color = Color.Red,
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(start = 4.dp, top = 2.dp, bottom = 4.dp)
+                            .align(Alignment.Start)
+                    )
+                }
+
                 Spacer(modifier = Modifier.height(16.dp))
                 CustomTextField(
                     label = "password",
@@ -121,9 +134,20 @@ fun LoginScreen(navController: NavController) {
                         }
                     }
                 )
+
+                if (password.isNotBlank() && !isPasswordValid) {
+                    Text(
+                        text = "Password must be at least 6 characters long",
+                        color = Color.Red,
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(start = 4.dp, top = 2.dp, bottom = 4.dp)
+                            .align(Alignment.Start)
+                    )
+                }
+
                 Spacer(modifier = Modifier.height(16.dp))
 
-                errorMessage?.let {
+                viewModel.errorMessage?.let {
                     Text(
                         text = it,
                         color = Color.Red,
@@ -132,10 +156,21 @@ fun LoginScreen(navController: NavController) {
                     )
                 }
 
+                if (viewModel.isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .padding(top = 16.dp)
+                            .align(Alignment.CenterHorizontally)
+                    )
+                }
+
                 Text("I forgot my password",
                     modifier = Modifier
                         .align(Alignment.Start)
-                        .padding(top = 5.dp),
+                        .padding(top = 5.dp)
+                        .clickable {
+                        //Need To implement when user click on text to return him to reset his password
+                        },
                     color = Color.Gray,
                     fontWeight = FontWeight.Bold)
             }
@@ -154,7 +189,10 @@ fun LoginScreen(navController: NavController) {
 
                 Spacer(modifier = Modifier.height(20.dp))
 
-                PrimaryButton(text = "Next") {
+                PrimaryButton(
+                    text = if (viewModel.isLoading) "Logging in..." else "Next",
+                    enabled = isEmailValid && isPasswordValid && !viewModel.isLoading
+                ) {
                     viewModel.login(email, password) {
                         navController.navigate("Home")
                     }

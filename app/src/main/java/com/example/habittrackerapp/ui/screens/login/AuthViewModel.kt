@@ -12,12 +12,17 @@ class AuthViewModel : ViewModel() {
     var currentUser by mutableStateOf<FirebaseUser?>(auth.currentUser)
         private set
 
+    var isLoading by mutableStateOf(false)
+        private set
+
     var errorMessage by mutableStateOf<String?>(null)
         private set
 
     fun login(email: String, password: String, onSuccess: () -> Unit) {
+        isLoading = true
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
+                isLoading = false
                 if (task.isSuccessful) {
                     currentUser = auth.currentUser
                     errorMessage = null
@@ -29,8 +34,10 @@ class AuthViewModel : ViewModel() {
     }
 
     fun signUp(email: String, password: String, onSuccess: () -> Unit) {
+        isLoading = true
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
+                isLoading = false
                 if (task.isSuccessful) {
                     currentUser = auth.currentUser
                     errorMessage = null
