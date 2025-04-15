@@ -49,6 +49,9 @@ fun CreateAccountScreen(navController: NavController, viewModel: AuthViewModel =
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
+    val isEmailValid = email.matches(Regex("[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}"))
+    val isPasswordValid = password.length >= 6
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -71,21 +74,51 @@ fun CreateAccountScreen(navController: NavController, viewModel: AuthViewModel =
                 CustomTextField(label = "Birthdate", value = birthdate, onValueChange = { birthdate = it }, placeholder = "mm/dd/yyyy")
                 Spacer(modifier = Modifier.height(12.dp))
                 CustomTextField(label = "Email", value = email, onValueChange = { email = it }, placeholder = "Enter your email")
+
+                if (email.isNotBlank() && !isEmailValid) {
+                    Text(
+                        text = "Please enter a valid email address",
+                        color = Color.Red,
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(start = 4.dp, top = 2.dp)
+                    )
+                }
+
                 Spacer(modifier = Modifier.height(12.dp))
                 CustomTextField(label = "Password", value = password, onValueChange = { password = it }, placeholder = "Enter your password")
+
+                if (password.isNotBlank() && !isPasswordValid) {
+                    Text(
+                        text = "Password must be at least 6 characters long",
+                        color = Color.Red,
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(start = 4.dp, top = 2.dp)
+                    )
+                }
 
                 if (viewModel.errorMessage != null) {
                     Text(
                         text = viewModel.errorMessage ?: "",
                         color = Color.Red,
+                        fontSize = 14.sp,
                         modifier = Modifier.padding(top = 8.dp)
+                    )
+                }
+
+                if (viewModel.isLoading) {
+                    androidx.compose.material3.CircularProgressIndicator(
+                        modifier = Modifier
+                            .padding(top = 16.dp)
+                            .align(Alignment.CenterHorizontally)
                     )
                 }
             }
 
             PrimaryButton(
-                text = "Next",
-                enabled = name.isNotBlank() && surname.isNotBlank() && birthdate.isNotBlank() && email.isNotBlank() && password.isNotBlank()
+                text = if (viewModel.isLoading) "Creating Account..." else "Next",
+                enabled = name.isNotBlank() && surname.isNotBlank() &&
+                        birthdate.isNotBlank() && isEmailValid &&
+                        isPasswordValid && !viewModel.isLoading
             ) {
                 viewModel.signUp(email, password) {
                     navController.navigate(Screen.Gender.route)
