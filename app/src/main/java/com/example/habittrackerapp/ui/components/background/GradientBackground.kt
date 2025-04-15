@@ -22,7 +22,7 @@ fun GradientBackground(
     showCircle: Boolean = true,
     content: @Composable () -> Unit = {}
 ) {
-    val gradientColors = listOf(Color(0xFF5611D9), Blue)
+    val gradientColors = listOf(Color(0xFF5611D9), Color.Red)
 
     val gradientBrush = Brush.linearGradient(
         colors = gradientColors,
