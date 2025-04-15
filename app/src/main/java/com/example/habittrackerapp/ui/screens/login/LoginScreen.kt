@@ -25,12 +25,18 @@ import androidx.navigation.NavController
 import com.example.habittrackerapp.navigation.Screen
 import com.example.habittrackerapp.ui.CustomTextField
 import com.example.habittrackerapp.ui.PrimaryButton
+import androidx.lifecycle.viewmodel.compose.viewModel
+
 
 
 @Composable
 fun LoginScreen(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+
+    val context = LocalContext.current
+    val viewModel: AuthViewModel = viewModel()
+    val errorMessage = viewModel.errorMessage
 
     Column(
         modifier = Modifier
@@ -77,8 +83,7 @@ fun LoginScreen(navController: NavController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 16.dp,
-                    end = 20.dp, start = 20.dp, bottom = 30.dp),
+                .padding(top = 16.dp, end = 20.dp, start = 20.dp, bottom = 30.dp),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -93,7 +98,7 @@ fun LoginScreen(navController: NavController) {
                     label = "email",
                     value = email,
                     onValueChange = { email = it },
-                    placeholder = "Enter your name",
+                    placeholder = "Enter your email",
                     trailingIcon = {
                         if (email.isNotEmpty()) {
                             IconButton(onClick = { email = "" }) {
@@ -107,7 +112,7 @@ fun LoginScreen(navController: NavController) {
                     label = "password",
                     value = password,
                     onValueChange = { password = it },
-                    placeholder = "Enter your surname",
+                    placeholder = "Enter your password",
                     trailingIcon = {
                         if (password.isNotEmpty()) {
                             IconButton(onClick = { password = "" }) {
@@ -117,34 +122,44 @@ fun LoginScreen(navController: NavController) {
                     }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-            Text("I forgot my password",
-                modifier = Modifier
-                    .align(Alignment.Start).
-                    padding(top = 5.dp),
-                color = Color.Gray,
-                fontWeight = FontWeight.Bold)
 
+                errorMessage?.let {
+                    Text(
+                        text = it,
+                        color = Color.Red,
+                        fontSize = 14.sp,
+                        modifier = Modifier.padding(vertical = 8.dp)
+                    )
+                }
 
+                Text("I forgot my password",
+                    modifier = Modifier
+                        .align(Alignment.Start)
+                        .padding(top = 5.dp),
+                    color = Color.Gray,
+                    fontWeight = FontWeight.Bold)
             }
-           Column {
 
-               Text("Don't have account? let's create!",
-                   modifier = Modifier
-                       .fillMaxWidth()
-                       .wrapContentWidth(Alignment.CenterHorizontally)
-                       .clickable {
-                           navController.navigate(Screen.CreateAccount.route)
-                       }
-                   ,
-                   color = Color(0xFF3843FF),
-                   fontSize = 18.sp,
-                   fontWeight = FontWeight.Bold)
-               Spacer(modifier = Modifier.height(20.dp))
-               PrimaryButton(text = "Next") {
-               // Handle navigation or validation
-           }
-           }
+            Column {
+                Text("Don't have account? let's create!",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentWidth(Alignment.CenterHorizontally)
+                        .clickable {
+                            navController.navigate(Screen.CreateAccount.route)
+                        },
+                    color = Color(0xFF3843FF),
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold)
 
+                Spacer(modifier = Modifier.height(20.dp))
+
+                PrimaryButton(text = "Next") {
+                    viewModel.login(email, password) {
+                        navController.navigate("Home")
+                    }
+                }
+            }
         }
     }
 }
