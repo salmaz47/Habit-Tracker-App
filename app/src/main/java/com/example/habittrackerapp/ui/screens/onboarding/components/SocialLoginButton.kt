@@ -27,7 +27,7 @@ fun SocialLoginButton(
     Button(
         onClick = onClick,
         modifier = Modifier
-            .size(width = 160.dp, height = 40.dp),
+            .size(width = 160.dp, height = 50.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color.White,
             contentColor = Color.Black

@@ -10,6 +10,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,8 +32,16 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(navController: NavController) {
+
+    var currentText by remember { mutableStateOf("") }
+    val text = "Routiner"
+
     LaunchedEffect(Unit) {
-        delay(3000)
+        for (i in 1..text.length) {
+            currentText = text.substring(0, i)
+            delay(250) // delay between letters
+        }
+        delay(250)
         navController.navigate(Screen.Onboarding.route) {
             popUpTo(Screen.Splash.route) { inclusive = true }
         }
@@ -52,7 +64,7 @@ fun SplashScreen(navController: NavController) {
                 Spacer(modifier = Modifier.width(16.dp))
 
                 Text(
-                    text = "Routiner",
+                    text = currentText,
                     fontSize = 44.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
