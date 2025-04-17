@@ -35,8 +35,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.habittrackerapp.navigation.Screen
+import com.example.habittrackerapp.ui.ResuableCard
 import com.example.habittrackerapp.ui.PrimaryButton
-import com.example.habittrackerapp.ui.ReusableCard
 
 @Composable
 fun GenderScreen(navController: NavController) {
@@ -83,43 +83,43 @@ fun GenderScreen(navController: NavController) {
             }
         }
 
-        Column (
-            verticalArrangement = Arrangement.SpaceBetween,
-            modifier = Modifier.fillMaxHeight().padding(bottom = 32.dp, start = 10.dp,end = 10.dp)
+    Column (
+        verticalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier.fillMaxHeight().padding(bottom = 32.dp, start = 10.dp,end = 10.dp)
 
 
-        ){ Column {      Text(
-            text = "Choose your gender",
-            fontSize = 20.sp,
-            color = Color.Black,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(start = 10.dp,end =10.dp,top=20.dp)
-        )
+    ){ Column {      Text(
+        text = "Choose your gender",
+        fontSize = 20.sp,
+        color = Color.Black,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(start = 10.dp,end =10.dp,top=20.dp)
+    )
 
-            Spacer(modifier = Modifier.height(32.dp))
+        Spacer(modifier = Modifier.height(32.dp))
 
-            Row(
-                horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp)
 
-            ) {
-                ReusableCard(
-                    emoji = "🧑🏻",
-                    label = "Male",
-                    selected = selectedGender == "Male",
-                    onClick = { selectedGender = "Male" }
-                )
-                ReusableCard(
-                    emoji = "🙋🏻‍♀️",
-                    label = "Female",
-                    selected = selectedGender == "Female",
-                    onClick = { selectedGender = "Female" }
-                )
-            } }
-            PrimaryButton("Next") {
-                navController.navigate(Screen.Habits.route)
-            }
+        ) {
+            ResuableCard(
+                emoji = "🧑🏻",
+                label = "Male",
+                selected = selectedGender == "Male",
+                onClick = { selectedGender = "Male" }
+            )
+            ResuableCard(
+                emoji = "🙋🏻‍♀️",
+                label = "Female",
+                selected = selectedGender == "Female",
+                onClick = { selectedGender = "Female" }
+            )
+        } }
+        PrimaryButton("Next") {
+            navController.navigate(Screen.Habits.route)
         }
+    }
 
 
 

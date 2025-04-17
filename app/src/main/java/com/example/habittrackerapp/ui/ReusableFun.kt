@@ -10,81 +10,26 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 
-
 @Composable
-fun CustomTextField(
-    label: String,
-    value: String,
-    onValueChange: (String) -> Unit,
-    placeholder: String,
-    modifier: Modifier = Modifier,
-    keyboardType: KeyboardType = KeyboardType.Text,
-    trailingIcon: @Composable (() -> Unit)? = null
-) {
-    Column(modifier = modifier) {
-        Text(
-            label.uppercase(),
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Black,
-            modifier = Modifier.padding(bottom = 4.dp)
-        )
-
-        TextField(
-            value = value ,
-            onValueChange = onValueChange,
-            placeholder = { Text(placeholder) },
-            singleLine = true,
-            keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
-            trailingIcon = trailingIcon,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(56.dp),
-            colors = TextFieldDefaults.colors(
-                focusedIndicatorColor = Color(0xFF00C853),
-                unfocusedIndicatorColor = Color.LightGray,
-                disabledIndicatorColor = Color.LightGray,
-                focusedTextColor = Color.Black,
-                unfocusedTextColor = Color.Black,
-                disabledTextColor = Color.Black,
-                cursorColor = Color.Black,
-                focusedContainerColor = Color.Transparent,
-                unfocusedContainerColor = Color.Transparent,
-                disabledContainerColor = Color.Transparent,
-                focusedPlaceholderColor = Color.Gray,
-                unfocusedPlaceholderColor = Color.Gray
-            ),
-
-                    shape = RectangleShape
-        )
-    }
-}
-
-@Composable
-fun ResuableCard(
+fun ReusableCard(
     emoji: String,
     label: String,
     selected: Boolean,
@@ -111,7 +56,6 @@ fun ResuableCard(
     }
 }
 
-
 @Composable
 fun PrimaryButton(
     text: String,
@@ -131,15 +75,17 @@ fun PrimaryButton(
         Text(text = text, fontSize = 16.sp, color = Color.White, fontWeight = FontWeight.Bold)
     }
 }
+
 @Composable
 @Preview(showSystemUi = true)
-fun prev()
+fun ReusableCardPrev()
 {
     var selectedGender by remember { mutableStateOf("") }
-    ResuableCard(
+    ReusableCard(
         emoji = "🙋🏻‍♀️",
         label = "Female",
         selected = selectedGender == "Female",
         onClick = { selectedGender = "Female" }
     )
 }
+
