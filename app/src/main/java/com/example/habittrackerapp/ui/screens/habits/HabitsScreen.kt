@@ -23,7 +23,6 @@ import androidx.navigation.NavHostController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.habittrackerapp.navigation.Screen
-import com.example.habittrackerapp.ui.PrimaryButton
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Alignment
@@ -35,6 +34,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.habittrackerapp.ui.ReusableCard
+import com.example.habittrackerapp.ui.components.primary_button.PrimaryButton
 
 
 @Composable

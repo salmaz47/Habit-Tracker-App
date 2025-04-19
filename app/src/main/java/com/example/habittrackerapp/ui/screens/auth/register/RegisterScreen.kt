@@ -22,6 +22,7 @@ import com.example.habittrackerapp.ui.screens.auth.components.*
 import com.example.habittrackerapp.ui.theme.Blue
 import kotlinx.coroutines.launch
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.habittrackerapp.navigation.Screen
 import com.example.habittrackerapp.ui.components.custom_snackbar.CustomSnackbar
 
 @Composable
@@ -116,7 +117,7 @@ fun RegisterScreen(
                     onClick = {
                         viewModel.register(
                             onSuccess = {
-                                navController.navigate("check_your_email")
+                                navController.navigate(Screen.CheckYourEmail.route)
                             },
                             onError = { errorMsg ->
                                 coroutineScope.launch {
@@ -134,11 +135,7 @@ fun RegisterScreen(
                 ClickableTextWithAction(
                     mainText = "Already have an account? ",
                     actionText = "Login",
-                    onClickAction = {
-                        navController.navigate("login") {
-                            popUpTo("register") { inclusive = true }
-                        }
-                    },
+                    onClickAction = { navController.popBackStack() },
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
 

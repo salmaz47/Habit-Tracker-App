@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.habittrackerapp.R
+import com.example.habittrackerapp.navigation.Screen
 import com.example.habittrackerapp.ui.components.background.GradientBackground
 import com.example.habittrackerapp.ui.screens.onboarding.components.OnboardingIndicator
 import com.example.habittrackerapp.ui.screens.onboarding.components.OnboardingPageItem
@@ -72,7 +73,7 @@ fun OnboardingPager(pages: List<OnboardingPageModel>, pagerState: PagerState) {
 @Composable
 fun OnboardingBottomSection(navController: NavController) {
     Button(
-        onClick = { navController.navigate("login") },
+        onClick = { navController.navigate(Screen.Login.route) },
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp, vertical = 8.dp)

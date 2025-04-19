@@ -11,6 +11,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.habittrackerapp.navigation.Screen
 import com.example.habittrackerapp.ui.components.custom_snackbar.CustomSnackbar
 import com.example.habittrackerapp.ui.screens.auth.components.AuthButton
 import com.example.habittrackerapp.ui.screens.auth.components.AuthHeader
@@ -51,8 +52,8 @@ fun CheckYourEmailScreen(
                     user?.reload()?.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             if (user.isEmailVerified) {
-                                navController.navigate("gender") {
-                                    popUpTo("check_your_email") { inclusive = true }
+                                navController.navigate(Screen.Gender.route) {
+                                    popUpTo(Screen.CheckYourEmail.route) { inclusive = true }
                                 }
                             } else {
                                 coroutineScope.launch {

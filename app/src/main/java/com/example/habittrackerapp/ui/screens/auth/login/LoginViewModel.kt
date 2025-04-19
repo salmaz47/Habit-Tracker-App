@@ -12,9 +12,6 @@ class LoginViewModel : ViewModel() {
     var loginState by mutableStateOf(LoginFormState())
         private set
 
-    var isGoogleLoginInProgress by mutableStateOf(false)
-        private set
-
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
     fun onEmailChanged(value: String) {
@@ -60,8 +57,5 @@ class LoginViewModel : ViewModel() {
                 }
             }
     }
-
-
-
 
 }
