@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Habit Tracker App</string>
+    <string name="web_client_id">897211163550-je3rs1o7qbl7674s3dfe57ir2kjkbb17.apps.googleusercontent.com</string>
+
+    <!-- Onboarding Titles -->
+    <string name="onboarding_title_1">Create \nGood Habits</string>
+    <string name="onboarding_title_2">Track \nYour Progress</string>
+    <string name="onboarding_title_3">Stay Together \nand Strong</string>
+
+    <!-- Onboarding Descriptions -->
+    <string name="onboarding_desc_1">Change your life by slowly adding new healthy habits and sticking to them.</string>
+    <string name="onboarding_desc_2">Everyday you become one step closer to your goal. Don’t give up!</string>
+    <string name="onboarding_desc_3">Find friends to discuss common topics. Complete challenges together.</string>
+
 </resources>
